@@ -69,6 +69,7 @@ set(CUTLASS_UNIT_TEST_SOURCES
   gemm/sgemm_64x32x8.cu
   gemm/sgemm_64x32x16.cu
   gemm/wmma_gemm.cu
+  gemm/igemm_128x32x32_float_to_float.cu
 )
 
 if (CUTLASS_NVRTC_ENABLE)
