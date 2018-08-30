@@ -496,13 +496,15 @@ template <
     /// The layout for B.
     MatrixLayout::Kind kLayoutB_,
     /// The output tile.
-    typename OutputTile_ = Shape<32, 128, 128>,
+//    typename OutputTile_ = Shape<32, 128, 128>,
+    typename OutputTile_ = Shape<128, 32, 32>,
     /// The output type.
     typename ScalarD_ = int,
     /// The functor to do the math in the epilogue.
     typename EpilogueFunctor_ = LinearScaling<typename IgemmEpilogueScalar<ScalarD_>::Scalar>,
     /// The number of accumulators per thread.
-    typename AccumulatorsPerThread_ = Shape<32, 8, 8>,
+//    typename AccumulatorsPerThread_ = Shape<32, 8, 8>,
+    typename AccumulatorsPerThread_ = Shape<32, 4, 4>,
     /// The index.
     typename Index_ = int,
     /// The helper class.

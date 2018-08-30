@@ -101,7 +101,7 @@ class HostTensor : public HostTensorView<T> {
   /// Updates the reference and size of a Tensor_view object
   void reset(Coord_t const& _stride, Coord_t const& _size) {
     size_t _capacity = _size.at(0) * _stride.at(0);
-
+    std::cout << "_capacity = " << _capacity << std::endl;
     DeviceType* _device_memory = nullptr;
     if (DeviceBacked) {
       _device_memory = cutlass::device_memory::allocate<DeviceType>(_capacity);

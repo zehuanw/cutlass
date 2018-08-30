@@ -24,7 +24,7 @@
  **************************************************************************************************/
 /*! \file
     \brief Defines abstractions for efficiently loading and storing vectors to memory.
-*/
+ */
 #pragma once
 
 #include <cutlass/vector.h>
@@ -157,7 +157,22 @@ struct Store {
 
   /// The store function.
   static CUTLASS_DEVICE void store(AccessType const& src, Scalar_* pointer, int offset) {
-    pointer[offset] = src;
+    extern const float *start_pos;
+    extern int COLUMN_NUM;
+    extern int ROW_NUM;
+    extern const float *d_scalerA;
+    extern const float *d_scalerB;
+
+    if(d_scalerA != NULL)
+    {
+        float *add = reinterpret_cast<float*>(&pointer[offset]);
+        int off = (add - start_pos);
+        int row = off / COLUMN_NUM;
+        int col = off % COLUMN_NUM;
+        pointer[offset] = src * __ldg(d_scalerA + row) * __ldg(d_scalerB + col);
+    }
+    else
+        pointer[offset] = src;
   }
 };
 
@@ -216,6 +231,7 @@ struct Store<Scalar_, Lanes_, Memory_, true, 16> {
     addr[0] = make_uint4(src.registers[0], src.registers[1], src.registers[2], src.registers[3]);
   }
 };
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -41,7 +41,7 @@ TEST(Igemm_32x32x128_float, igemm_1024x64x1024_nn) {
   run_gemm<IgemmTraits>(1024, 64, 1024); //m,n,k
 }
 
-TEST(Igemm_32x32x128_float, igemm_1024x64x10242_nn) {
+TEST(Igemm_32x32x128_float, igemm_1024x64x1024_2_nn) {
   typedef cutlass::gemm::IgemmTraits<cutlass::MatrixLayout::kColumnMajor,
                                      cutlass::MatrixLayout::kColumnMajor, 
                                      cutlass::Shape<32, 128, 128, 1>, float,
@@ -52,7 +52,7 @@ TEST(Igemm_32x32x128_float, igemm_1024x64x10242_nn) {
   run_gemm<IgemmTraits>(1024, 64, 1024); //m,n,k
 }
 
-TEST(Igemm_32x32x128_float, igemm_1024x64x10243_nn) {
+TEST(Igemm_32x32x128_float, igemm_1024x64x1024_3_nn) {
   typedef cutlass::gemm::IgemmTraits<cutlass::MatrixLayout::kColumnMajor,
                                      cutlass::MatrixLayout::kColumnMajor, 
                                      cutlass::Shape<32, 128, 128, 1>, float>
@@ -60,7 +60,7 @@ TEST(Igemm_32x32x128_float, igemm_1024x64x10243_nn) {
   run_gemm<IgemmTraits>(1024, 64, 1024); //m,n,k
 }
 
-TEST(Igemm_32x32x128_float, igemm_1024x64x10244_nn) {
+TEST(Igemm_32x32x128_float, igemm_1024x64x1024_4_nn) {
   typedef cutlass::gemm::IgemmTraits<cutlass::MatrixLayout::kColumnMajor,
                                      cutlass::MatrixLayout::kColumnMajor, 
                                      cutlass::Shape<128, 32, 32, 1>, int,
@@ -71,7 +71,7 @@ TEST(Igemm_32x32x128_float, igemm_1024x64x10244_nn) {
   run_gemm<IgemmTraits>(1024, 64, 1024); //m,n,k
 }
 
-TEST(Igemm_32x32x128_float, igemm_1024x1024x10245_nn) {
+TEST(Igemm_32x32x128_float, igemm_1024x1024x1024_5_nn) {
   typedef cutlass::gemm::IgemmTraits<cutlass::MatrixLayout::kColumnMajor,
                                      cutlass::MatrixLayout::kColumnMajor, 
                                      cutlass::Shape<128, 32, 32, 1>, int,
@@ -81,3 +81,37 @@ TEST(Igemm_32x32x128_float, igemm_1024x1024x10245_nn) {
       IgemmTraits;
   run_gemm<IgemmTraits>(1024, 1024, 1024); //m,n,k
 }
+
+TEST(Igemm_32x32x128_float, igemm_1024x1024x1024_6_nn) {
+  typedef cutlass::gemm::IgemmTraits<cutlass::MatrixLayout::kColumnMajor,
+                                     cutlass::MatrixLayout::kColumnMajor, 
+                                     cutlass::Shape<128, 32, 32, 1>, int,
+				     cutlass::gemm::LinearScaling<int, cutlass::gemm::FragmentMultiplyAdd<int> >,
+				     cutlass::Shape<32, 4, 4, 1>,
+				     int>
+      IgemmTraits;
+  run_gemm_test_int_to_float<IgemmTraits>(1024, 1024, 1024); //m,n,k
+}
+
+TEST(Igemm_32x32x128_float, igemm_1024x512x2048_7_nn) {
+  typedef cutlass::gemm::IgemmTraits<cutlass::MatrixLayout::kColumnMajor,
+                                     cutlass::MatrixLayout::kColumnMajor, 
+                                     cutlass::Shape<128, 32, 32, 1>, int,
+				     cutlass::gemm::LinearScaling<int, cutlass::gemm::FragmentMultiplyAdd<int> >,
+				     cutlass::Shape<32, 4, 4, 1>,
+				     int>
+      IgemmTraits;
+  run_gemm_test_int_to_float<IgemmTraits>(1024, 512, 2048); //m,n,k
+}
+
+TEST(Igemm_32x32x128_float, igemm_1024x1024x1024_8_nn) {
+  typedef cutlass::gemm::IgemmTraits<cutlass::MatrixLayout::kColumnMajor,
+                                     cutlass::MatrixLayout::kColumnMajor, 
+                                     cutlass::Shape<128, 32, 32, 1>, int,
+				     cutlass::gemm::LinearScaling<int, cutlass::gemm::FragmentMultiplyAdd<int> >,
+				     cutlass::Shape<32, 4, 4, 1>,
+				     int>
+      IgemmTraits;
+  run_gemm_test_int_to_float2<IgemmTraits>(1024, 1024, 1024); //m,n,k
+}
+
